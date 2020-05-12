@@ -74,13 +74,13 @@ jobs:
       run: |
         cabal v2-haddock pkg:semmc${{ matrix.pkg }}
 
-    - name: Install yices
+    - name: Install Solvers
       if: runner.os == 'Linux' && ( matrix.pkg == '' )
       run: |
         sudo apt install software-properties-common
         sudo apt-add-repository ppa:sri-csl/formal-methods
         sudo apt update
-        sudo apt install -y yices2
+        sudo apt install -y yices2 z3
 
         # NOTE: This is not running the semmc (core) tests right now because of
         # some issues with generated formulas not being supported in what4-serialize
