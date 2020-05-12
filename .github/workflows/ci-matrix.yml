@@ -20,7 +20,7 @@ jobs:
         pkg: ['', '-aarch32', '-coverage', '-fuzzer', '-learning', '-ppc', '-synthesis', '-toy']
         ghc: ['8.6.5', '8.8.3']
         cabal: ['3.2.0.0']
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-latest, macOS-latest]
         exclude:
           # - os: macOS-latest
           #   ghc: 8.8.3
@@ -32,10 +32,10 @@ jobs:
           #   ghc: 8.6.5
 
           # NOTE: Windows does not build due to a (probably spurious) unix dependency
-          - os: windows-latest
-            pkg: '-fuzzer'
-          - os: windows-latest
-            pkg: '-coverage'
+          # - os: windows-latest
+          #   pkg: '-fuzzer'
+          # - os: windows-latest
+          #   pkg: '-coverage'
 
     name: GHC ${{ matrix.ghc }} (${{ matrix.os }}) semmc${{ matrix.pkg }}
 
