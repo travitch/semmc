@@ -65,12 +65,18 @@ jobs:
         key: ${{ runner.os }}-${{ matrix.ghc }}-dist-newstyle
 
     - name: Build
+      shell: bash
       run: |
         cp cabal.project.newbuild cabal.project
         cabal v2-configure pkg:semmc${{ matrix.pkg }} --write-ghc-environment-files=always --enable-tests -j1
         cabal v2-build pkg:semmc${{ matrix.pkg }}
 
     - name: Haddock
+      # There are no haddocks in the coverage package and that causes cabal to explode
+      #
+      # https://github.com/haskell/cabal/issues/6679
+      if: matrix.pkg != '-coverage'
+      shell: bash
       run: |
         cabal v2-haddock pkg:semmc${{ matrix.pkg }}
 
