@@ -1,11 +1,12 @@
-{-# LANGUAGE GADTs #-}
-{-# LANGUAGE RankNTypes #-}
-{-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE GADTs #-}
 {-# LANGUAGE MultiWayIf #-}
-{-# LANGUAGE TupleSections #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE TupleSections #-}
+{-# LANGUAGE TypeApplications #-}
 module Main where
 
 import           Control.Applicative ((<|>))
@@ -38,7 +39,11 @@ import qualified System.Exit as IO
 import qualified System.Environment as IO
 import qualified System.IO as IO
 import           System.Console.GetOpt
+#if defined(WINDOWS)
+import qualified System.Win32 as W32
+#else
 import           System.Posix.User (getLoginName)
+#endif
 import           Network.HostName (getHostName)
 import qualified Network.HTTP as H
 import           Text.PrettyPrint.HughesPJ (render, Doc)
@@ -503,7 +508,11 @@ testRunner :: forall arch .
            -> C.Chan (CE.ResultOrError (V.ConcreteState arch))
            -> IO ()
 testRunner mainConfig hostConfig proxy inputOpcodes strat semantics funcs ppInst assemble ifilt caseChan resChan = do
+#if defined(WINDOWS)
+    self <- W32.getUserName
+#else
     self <- getLoginName
+#endif
     hostname <- getHostName
 
     let chunkSize = fuzzerTestChunkSize hostConfig
