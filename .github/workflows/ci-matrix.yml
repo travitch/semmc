@@ -76,7 +76,7 @@ jobs:
     - name: Install yices
       if: runner.os == 'Linux' && ( matrix.pkg == '' )
       run: |
-        sudo apt install python-software-properties software-properties-common
+        sudo apt install software-properties-common
         sudo apt-add-repository ppa:sri-csl/formal-methods
         sudo apt update
         sudo apt install -y yices2
