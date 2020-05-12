@@ -75,7 +75,7 @@ jobs:
         cabal v2-haddock pkg:semmc${{ matrix.pkg }}
 
     - name: Install Solvers
-      if: runner.os == 'Linux' && ( matrix.pkg == '' )
+      if: runner.os == 'Linux' && ( matrix.pkg == '' || matrix.pkg == '-ppc' )
       run: |
         sudo apt install software-properties-common
         sudo apt-add-repository ppa:sri-csl/formal-methods
