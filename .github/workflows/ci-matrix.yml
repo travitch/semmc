@@ -34,6 +34,8 @@ jobs:
           # NOTE: Windows does not build due to a (probably spurious) unix dependency
           - os: windows-latest
             pkg: '-fuzzer'
+          - os: windows-latest
+            pkg: '-coverage'
 
     name: GHC ${{ matrix.ghc }} (${{ matrix.os }}) semmc${{ matrix.pkg }}
 
