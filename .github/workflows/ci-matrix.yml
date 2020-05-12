@@ -66,7 +66,6 @@ jobs:
 
     - name: Build
       run: |
-        cabal v2-update
         cp cabal.project.newbuild cabal.project
         cabal v2-configure pkg:semmc${{ matrix.pkg }} --write-ghc-environment-files=always --enable-tests -j1
         cabal v2-build pkg:semmc${{ matrix.pkg }}
