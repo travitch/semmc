@@ -37,6 +37,9 @@ jobs:
             pkg: '-fuzzer'
           - os: windows-latest
             pkg: '-coverage'
+          # This one consistently crashes on the Windows runner for some reason
+          - os: windows-latest
+            pkg: '-ppc'
 
     name: GHC ${{ matrix.ghc }} (${{ matrix.os }}) semmc${{ matrix.pkg }}
 
